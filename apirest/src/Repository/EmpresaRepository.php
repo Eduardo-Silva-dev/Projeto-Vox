@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Empresa;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 
 /**
  * @method Empresa|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +21,53 @@ class EmpresaRepository extends ServiceEntityRepository
         parent::__construct($registry, Empresa::class);
     }
 
-    // /**
-    //  * @return Empresa[] Returns an array of Empresa objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param Empresa $empresa
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function insert(Empresa $empresa)
     {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $this->getEntityManager()->persist($empresa);
+        $this->getEntityManager()->flush();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Empresa
+    /**
+     * @return array
+     */
+    public function listAll(): array
     {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $this->findAll();
     }
-    */
+
+    /**
+     * @param Empresa $empresa
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function update(Empresa $empresa)
+    {
+        $this->getEntityManager()->persist($empresa);
+        $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @param int $id
+     * @return Empresa|null
+     */
+    public function listIdEmp(int $id): ?Empresa
+    {
+        return $this->find($id);
+    }
+
+    /**
+     * @param Empresa $empresa
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function delete(Empresa $empresa)
+    {
+        $this->getEntityManager()->remove($empresa);
+        $this->getEntityManager()->flush();
+    }
 }

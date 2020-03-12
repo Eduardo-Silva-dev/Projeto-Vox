@@ -1,0 +1,7 @@
+{
+  "name": "ApiRest Empresa",
+  "version": "1.0.0",
+  "description": "ApiRest para Empresa e Socio",
+  "title": "Projeto Vox",
+  "url" : "https://127.0.0.1:8000"
+}

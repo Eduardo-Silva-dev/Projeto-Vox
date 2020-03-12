@@ -19,32 +19,55 @@ class SociosRepository extends ServiceEntityRepository
         parent::__construct($registry, Socios::class);
     }
 
-    // /**
-    //  * @return Socios[] Returns an array of Socios objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Socios
+    /**
+     * @return array
+     */
+    public function list(): array
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $this->findAll();
     }
-    */
+
+    /**
+     * @param int $id
+     * @return Socios|null
+     */
+    public function listIdSoc(int $id): ?Socios
+    {
+        return $this->find($id);
+    }
+
+    /**
+     * @param Socios $socio
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function insert(Socios $socio)
+    {
+        $this->getEntityManager()->persist($socio);
+        $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @param Socios $socio
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function update(Socios $socio)
+    {
+        $this->getEntityManager()->persist($socio);
+        $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @param Socios $socio
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function delete(Socios $socio)
+    {
+
+        $this->getEntityManager()->remove($socio);
+        $this->getEntityManager()->flush();
+    }
 }

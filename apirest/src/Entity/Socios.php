@@ -41,6 +41,12 @@ class Socios
      */
     private $cargo;
 
+       /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Empresa", inversedBy="socios")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $empresaId;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -102,6 +108,25 @@ class Socios
     public function setCargo(string $cargo): self
     {
         $this->cargo = $cargo;
+
+        return $this;
+    }
+
+    /**
+     * @return Empresa|null
+     */
+    public function getEmpresaId(): ?Empresa
+    {
+        return $this->empresaId;
+    }
+
+    /**
+     * @param Empresa|null $empresaId
+     * @return $this
+     */
+    public function setEmpresaId(?Empresa $empresaId): self
+    {
+        $this->empresaId = $empresaId;
 
         return $this;
     }
